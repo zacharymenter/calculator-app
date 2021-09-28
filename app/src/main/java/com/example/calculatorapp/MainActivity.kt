@@ -50,5 +50,101 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun equalsAction(view: android.view.View) {}
+    fun equalsAction(view: android.view.View) {
+        resultsTV.text = calculateResults()
+    }
+
+    private fun calculateResults(): String {
+        val digitsOperators = digitsOperators()
+        if (digitsOperators.isEmpty()) return ""
+
+        val timesDivision = timesDivisionCalculate(digitsOperators)
+        if (timesDivision.isEmpty()) return ""
+
+        val result = addSubtractCalculate(timesDivision)
+
+        return result.toString()
+    }
+
+    private fun addSubtractCalculate(timesDivision: MutableList<Any>): Float {
+        var result = timesDivision[0] as Float
+
+        for (i in timesDivision.indices) {
+            if (timesDivision[i] is Char && i != timesDivision.lastIndex) {
+                val operator = timesDivision[i]
+                val nextDigit = timesDivision[i + 1] as Float
+                if (operator == '+') {
+                    result += nextDigit
+                }
+                if (operator == '-')
+                    result -= nextDigit
+            }
+        }
+
+        return result
+    }
+
+    private fun timesDivisionCalculate(digitsOperators: MutableList<Any>): MutableList<Any> {
+        var list = digitsOperators
+        while (list.contains('x') || list.contains('/')) {
+            list = calcTimesDiv(list)
+        }
+        return list;
+    }
+
+    private fun calcTimesDiv(list: MutableList<Any>): MutableList<Any> {
+        val newList = mutableListOf<Any>()
+
+        var restartIndex = list.size
+
+        for (i in list.indices) {
+            if (list[i] is Char && i != list.lastIndex && i < restartIndex) {
+                val operator = list[i]
+                val prevDigit = list[i - 1] as Float
+                val nextDigit = list[i + 1] as Float
+
+                when (operator) {
+                    'x' -> {
+                        newList.add(prevDigit * nextDigit)
+                        restartIndex = i + 1
+                    }
+                    '/' -> {
+                        newList.add(prevDigit / nextDigit)
+                        restartIndex = i + 1
+                    }
+                    else -> {
+                        newList.add(prevDigit)
+                        newList.add(operator)
+                    }
+                }
+            }
+
+            if (i > restartIndex) {
+                newList.add(list[i])
+            }
+        }
+
+        return newList
+    }
+
+    private fun digitsOperators(): MutableList<Any> {
+        val list = mutableListOf<Any>()
+        var currentDigit = ""
+
+        for (character in workingsTV.text) {
+            if (character.isDigit() || character == '.') {
+                currentDigit += character
+            } else {
+                list.add(currentDigit.toFloat())
+                currentDigit = ""
+                list.add(character)
+            }
+        }
+
+        if (currentDigit != "") {
+            list.add(currentDigit.toFloat())
+        }
+
+        return list
+    }
 }

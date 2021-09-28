@@ -61,7 +61,7 @@
             style="@style/numberButton"
             android:textColor="@color/red"
             android:onClick="backSpaceAction"
-            android:text="back"/>
+            android:text="⌫"/>
 
         <Button
             style="@style/numberButton"
