@@ -1,5 +1,5 @@
 # calculator-app
-This is a calculator app for CS 436
+A basic calculator app for CS 436
 
 ### Todo
 - [x] Addition
