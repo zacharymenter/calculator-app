@@ -6,7 +6,7 @@ This is a calculator app for CS 436
 - [x] Subtraction
 - [x] Multiplication
 - [x] Division
-- [] Parentheses?
-- [] Exponent
-- [] Log
-- [] Rotate functionality
+- [ ] Parentheses?
+- [ ] Exponent
+- [ ] Log
+- [ ] Rotate functionality
