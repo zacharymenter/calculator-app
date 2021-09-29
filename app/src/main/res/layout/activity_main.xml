@@ -86,6 +86,7 @@
 
         <Button
             style="@style/numberButton"
+            android:onClick="subtractAction"
             android:text="9"/>
 
         <Button

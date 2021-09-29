@@ -9,6 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private var canAddOperation = false
     private var canAddDecimal = true
+    private var canAddSubtract = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,15 @@ class MainActivity : AppCompatActivity() {
             if (canAddDecimal) {
                 inputTV.append(view.text)
                 canAddDecimal = false
+            }
+        }
+    }
+
+    fun subtractAction(view: android.view.View) {
+        if (view is Button) {
+            if (canAddSubtract) {
+                inputTV.append(view.text)
+                canAddSubtract = false
             }
         }
     }
@@ -58,19 +68,24 @@ class MainActivity : AppCompatActivity() {
 
 
     //should all of this go in a separate class?
+    //calculates the result and returns the result string
     private fun calculateResults(): String {
-        val digitsOperators = digitsOperators()
-        if (digitsOperators.isEmpty()) return ""
+        val input = parse()
+        if (input.isEmpty()) {
+            return ""
+        }
 
-        val timesDivision = timesDivisionCalculate(digitsOperators)
-        if (timesDivision.isEmpty()) return ""
+        val timesDivision = calculateTimesDivision(input)
+        if (timesDivision.isEmpty()) {
+            return ""
+        }
 
-        val result = addSubtractCalculate(timesDivision)
+        val result = calculateAdditionSubtraction(timesDivision)
 
         return result.toString()
     }
 
-    private fun addSubtractCalculate(timesDivision: MutableList<Any>): Float {
+    private fun calculateAdditionSubtraction(timesDivision: MutableList<Any>): Float {
         var result = timesDivision[0] as Float
 
         for (i in timesDivision.indices) {
@@ -88,15 +103,15 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
-    private fun timesDivisionCalculate(digitsOperators: MutableList<Any>): MutableList<Any> {
-        var list = digitsOperators
-        while (list.contains('x') || list.contains('/')) {
-            list = calcTimesDiv(list)
+    private fun calculateTimesDivision(input: MutableList<Any>): MutableList<Any> {
+        var resultList = input
+        while (resultList.contains('x') || resultList.contains('/')) {
+            resultList = calcTimesDivHelper(resultList)
         }
-        return list;
+        return resultList;
     }
 
-    private fun calcTimesDiv(list: MutableList<Any>): MutableList<Any> {
+    private fun calcTimesDivHelper(list: MutableList<Any>): MutableList<Any> {
         val newList = mutableListOf<Any>()
 
         var restartIndex = list.size
@@ -131,13 +146,19 @@ class MainActivity : AppCompatActivity() {
         return newList
     }
 
-    private fun digitsOperators(): MutableList<Any> {
+    //parse the input string into a list of digits and operators
+    private fun parse(): MutableList<Any> {
         val list = mutableListOf<Any>()
         var currentDigit = ""
 
         for (character in inputTV.text) {
             if (character.isDigit() || character == '.') {
                 currentDigit += character
+
+                //allow for input of negative numbers
+            } else if (character == '-') {
+                list.add(currentDigit.toFloat())
+                currentDigit = "" + character
             } else {
                 list.add(currentDigit.toFloat())
                 currentDigit = ""
