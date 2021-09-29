@@ -17,7 +17,7 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/workingsTV"
+            android:id="@+id/inputTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
@@ -26,13 +26,13 @@
             android:textColor="@color/white"
             android:textAlignment="textEnd"
             android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/resultsTV"
+            app:layout_constraintBottom_toTopOf="@+id/resultTV"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/resultsTV"
+            android:id="@+id/resultTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
@@ -141,6 +141,7 @@
 
         <Button
             style="@style/numberButton"
+            android:onClick="decimalAction"
             android:text="."/>
 
         <Button

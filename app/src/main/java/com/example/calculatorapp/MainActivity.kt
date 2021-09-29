@@ -17,43 +17,47 @@ class MainActivity : AppCompatActivity() {
 
     fun numberAction(view: android.view.View) {
         if (view is Button) {
-            if (view.text == ".") {
-                if (canAddDecimal) {
-                    workingsTV.append(view.text)
-                }
-                canAddDecimal = false
-            } else {
-                workingsTV.append(view.text)
-            }
-
+            inputTV.append(view.text)
             canAddOperation = true
+        }
+    }
+
+    fun decimalAction(view: android.view.View) {
+        if (view is Button) {
+            if (canAddDecimal) {
+                inputTV.append(view.text)
+                canAddDecimal = false
+            }
         }
     }
 
     fun operationAction(view: android.view.View) {
         if (view is Button && canAddOperation) {
-            workingsTV.append(view.text)
+            inputTV.append(view.text)
             canAddOperation = false
             canAddDecimal = true
         }
     }
 
     fun allClearAction(view: android.view.View) {
-        workingsTV.text = ""
-        resultsTV.text = ""
+        inputTV.text = ""
+        resultTV.text = ""
     }
 
     fun backSpaceAction(view: android.view.View) {
-        val length = workingsTV.length()
+        val length = inputTV.length()
         if (length > 0)
-            workingsTV.text = workingsTV.text.subSequence(0, length - 1)
+            inputTV.text = inputTV.text.subSequence(0, length - 1)
 
     }
 
     fun equalsAction(view: android.view.View) {
-        resultsTV.text = calculateResults()
+        resultTV.text = calculateResults()
     }
 
+
+
+    //should all of this go in a separate class?
     private fun calculateResults(): String {
         val digitsOperators = digitsOperators()
         if (digitsOperators.isEmpty()) return ""
@@ -131,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         val list = mutableListOf<Any>()
         var currentDigit = ""
 
-        for (character in workingsTV.text) {
+        for (character in inputTV.text) {
             if (character.isDigit() || character == '.') {
                 currentDigit += character
             } else {
