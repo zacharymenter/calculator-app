@@ -53,12 +53,16 @@ class MainActivity : AppCompatActivity() {
     fun allClearAction(view: android.view.View) {
         inputTV.text = ""
         resultTV.text = ""
+        canAddDecimal = true
+        canAddSubtract = true
+        canAddOperation = false
     }
 
     fun backSpaceAction(view: android.view.View) {
         val length = inputTV.length()
-        if (length > 0)
+        if (length > 0) {
             inputTV.text = inputTV.text.subSequence(0, length - 1)
+        }
 
     }
 
