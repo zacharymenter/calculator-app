@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         if (view is Button) {
             inputTV.append(view.text)
             canAddOperation = true
+            canAddSubtract = true
         }
     }
 
@@ -89,15 +90,11 @@ class MainActivity : AppCompatActivity() {
         var result = timesDivision[0] as Float
 
         for (i in timesDivision.indices) {
-            if (timesDivision[i] is Char && i != timesDivision.lastIndex) {
-                val operator = timesDivision[i]
-                val nextDigit = timesDivision[i + 1] as Float
-                if (operator == '+') {
-                    result += nextDigit
-                }
-                if (operator == '-') {
-                    result -= nextDigit
-                }
+            val current = timesDivision[i]
+            if (current is Char && current == '+' && i != timesDivision.lastIndex) {
+                result += timesDivision[i + 1] as Float
+            } else if (i > 0 && timesDivision[i - 1] is Float && current is Float && current < 0) {
+                result += current
             }
         }
 
@@ -153,7 +150,13 @@ class MainActivity : AppCompatActivity() {
         var currentDigit = ""
 
         for (character in inputTV.text) {
-            if (character.isDigit() || character == '.') {
+            if (character == '-') {
+                if (currentDigit != "") {
+                    list.add(currentDigit.toFloat())
+                }
+                currentDigit = ""
+                currentDigit += character
+            } else if (character.isDigit() || character == '.') {
                 currentDigit += character
             } else {
                 list.add(currentDigit.toFloat())
@@ -162,12 +165,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //handle the end of the list
         if (currentDigit != "") {
+            println(currentDigit.toFloat())
             list.add(currentDigit.toFloat())
-        }
-
-        for (i in list) {
-            println("test: " + i)
         }
 
         return list
