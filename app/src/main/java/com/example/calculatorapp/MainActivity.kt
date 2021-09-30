@@ -95,8 +95,9 @@ class MainActivity : AppCompatActivity() {
                 if (operator == '+') {
                     result += nextDigit
                 }
-                if (operator == '-')
+                if (operator == '-') {
                     result -= nextDigit
+                }
             }
         }
 
@@ -154,11 +155,6 @@ class MainActivity : AppCompatActivity() {
         for (character in inputTV.text) {
             if (character.isDigit() || character == '.') {
                 currentDigit += character
-
-                //allow for input of negative numbers
-            } else if (character == '-') {
-                list.add(currentDigit.toFloat())
-                currentDigit = "" + character
             } else {
                 list.add(currentDigit.toFloat())
                 currentDigit = ""
@@ -168,6 +164,10 @@ class MainActivity : AppCompatActivity() {
 
         if (currentDigit != "") {
             list.add(currentDigit.toFloat())
+        }
+
+        for (i in list) {
+            println("test: " + i)
         }
 
         return list

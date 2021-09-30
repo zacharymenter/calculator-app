@@ -86,7 +86,6 @@
 
         <Button
             style="@style/numberButton"
-            android:onClick="subtractAction"
             android:text="9"/>
 
         <Button
@@ -112,6 +111,7 @@
 
         <Button
             style="@style/operatorButton"
+            android:onClick="subtractAction"
             android:text="-"/>
 
     </LinearLayout>
