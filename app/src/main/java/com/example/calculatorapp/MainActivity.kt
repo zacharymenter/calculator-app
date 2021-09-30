@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
             if (canAddSubtract) {
                 inputTV.append(view.text)
                 canAddSubtract = false
+                canAddOperation = false
+                canAddDecimal = true
             }
         }
     }
@@ -64,6 +66,24 @@ class MainActivity : AppCompatActivity() {
             inputTV.text = inputTV.text.subSequence(0, length - 1)
         }
 
+        val end = inputTV.text[inputTV.length() - 1]
+        if (end.isDigit()) {
+            canAddDecimal = true
+            canAddOperation = true
+            canAddSubtract = true
+        } else if (end != '.') {
+            canAddOperation = false
+        }
+
+        for (i in inputTV.length() - 1 downTo 0) {
+            val current = inputTV.text[i]
+            if (!current.isDigit()) {
+                if (current == '.') {
+                    canAddDecimal = false
+                }
+                break
+            }
+        }
     }
 
     fun equalsAction(view: android.view.View) {
