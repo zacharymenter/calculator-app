@@ -24,6 +24,7 @@
             android:textColor="@color/white"
             android:textAlignment="textEnd"
             android:textSize="30sp"
+            android:maxLines="2"
             app:layout_constraintBottom_toTopOf="@+id/resultText" />
 
         <TextView

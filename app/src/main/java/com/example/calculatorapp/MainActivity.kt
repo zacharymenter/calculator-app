@@ -136,26 +136,26 @@ class MainActivity : AppCompatActivity() {
         val length = inputText.length()
         if (length > 0) {
             inputText.text = inputText.text.subSequence(0, length - 1)
-        }
 
-        //if the last character is a number or decimal, allow decimals and all operations
-        val end = inputText.text[inputText.length() - 1]
-        if (end.isDigit() || end == '.') {
-            canAddDecimal = true
-            canAddOperation = true
-            canAddSubtract = true
-        } else {
-            canAddOperation = false
-        }
+            //if the last character is a number or decimal, allow decimals and all operations
+            val end = inputText.text[inputText.length() - 1]
+            if (end.isDigit() || end == '.') {
+                canAddDecimal = true
+                canAddOperation = true
+                canAddSubtract = true
+            } else {
+                canAddOperation = false
+            }
 
-        //if there is a decimal anywhere between the end of the input string and the last operator, don't allow decimals
-        for (i in inputText.length() - 1 downTo 0) {
-            val current = inputText.text[i]
-            if (!current.isDigit()) {
-                if (current == '.') {
-                    canAddDecimal = false
+            //if there is a decimal anywhere between the end of the input string and the last operator, don't allow decimals
+            for (i in inputText.length() - 1 downTo 0) {
+                val current = inputText.text[i]
+                if (!current.isDigit()) {
+                    if (current == '.') {
+                        canAddDecimal = false
+                    }
+                    break
                 }
-                break
             }
         }
     }
