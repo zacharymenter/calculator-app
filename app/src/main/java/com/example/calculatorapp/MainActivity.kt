@@ -86,6 +86,8 @@ class MainActivity : AppCompatActivity() {
         if (canAddDecimal) {
             inputText.append(text)
             canAddDecimal = false
+            canAddOperation = false
+            canAddMinus = false
         }
     }
 
