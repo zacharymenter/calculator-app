@@ -8,7 +8,7 @@ A basic calculator app for CS 436
 - [x] Division
 - [X] Subtraction
 - [ ] Parentheses?
-- [ ] Exponent
+- [x] Exponent
 - [ ] Log
 - [ ] Rotate functionality
 - [ ] Tests
