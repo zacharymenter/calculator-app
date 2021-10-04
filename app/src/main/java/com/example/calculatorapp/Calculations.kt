@@ -32,8 +32,8 @@ class Calculations {
                     digit = ""
                 }
 
-                //if current character is '-' and there is an operator before it, the next digit will be negative
-                if (character == '-' && !input[i - 1].isDigit()) {
+                //if current character is '-' and there is an operator or nothing else before it, the next digit will be negative
+                if (character == '-' && (i == 0 || !input[i - 1].isDigit())) {
                     digit += character
 
                     //treat as normal operator and add it to the list
