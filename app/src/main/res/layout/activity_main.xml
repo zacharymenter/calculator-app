@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/darkgrey"
+    android:background="@color/black"
     tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 
@@ -17,146 +17,168 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/inputTV"
+            android:id="@+id/inputText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:lines="2"
-            android:maxLines="2"
             android:textColor="@color/white"
             android:textAlignment="textEnd"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toTopOf="@+id/resultTV"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/resultText" />
 
         <TextView
-            android:id="@+id/resultTV"
+            android:id="@+id/resultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:lines="1"
-            android:maxLines="1"
             android:textColor="@color/white"
             android:textAlignment="textEnd"
-            android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="50sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        style="@style/buttonRow">
-
-        <Button
-            style="@style/numberButton"
-            android:textColor="@color/red"
-            android:onClick="allClearAction"
-            android:text="AC"/>
-
-        <Button
-            style="@style/numberButton"
-            android:textColor="@color/red"
-            android:onClick="backSpaceAction"
-            android:text="⌫"/>
-
-        <Button
-            style="@style/numberButton"
-            android:text=""/>
+    <androidx.gridlayout.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        app:columnCount="4"
+        app:rowCount="5">
 
         <Button
             style="@style/operatorButton"
-            android:text="/"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/buttonRow">
-
-        <Button
-            style="@style/numberButton"
-            android:text="7"/>
-
-        <Button
-            style="@style/numberButton"
-            android:text="8"/>
-
-        <Button
-            style="@style/numberButton"
-            android:text="9"/>
+            android:id="@+id/acButton"
+            android:text="AC"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/operatorButton"
-            android:text="x"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/buttonRow">
+            android:id="@+id/backspaceButton"
+            android:text="⌫"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
-            style="@style/numberButton"
-            android:text="4"/>
-
-        <Button
-            style="@style/numberButton"
-            android:text="5"/>
-
-        <Button
-            style="@style/numberButton"
-            android:text="6"/>
+            android:id="@+id/blankButton"
+            android:text=""
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/operatorButton"
-            android:onClick="subtractAction"
-            android:text="-"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/buttonRow">
+            android:id="@+id/divideButton"
+            android:text="/"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/numberButton"
-            android:text="1"/>
+            android:id="@+id/button7"
+            android:text="7"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/numberButton"
-            android:text="2"/>
+            android:id="@+id/button8"
+            android:text="8"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/numberButton"
-            android:text="3"/>
+            android:id="@+id/button9"
+            android:text="9"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/operatorButton"
-            android:text="+"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/buttonRow">
+            android:id="@+id/timesButton"
+            android:text="x"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/numberButton"
-            android:onClick="decimalAction"
-            android:text="."/>
+            android:id="@+id/button4"
+            android:text="4"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/numberButton"
-            android:text="0"/>
+            android:id="@+id/button5"
+            android:text="5"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
         <Button
             style="@style/numberButton"
-            android:layout_weight="2"
-            android:background="@color/orange"
-            android:textSize="40sp"
-            android:onClick="equalsAction"
-            android:text="="/>
+            android:id="@+id/button6"
+            android:text="6"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
 
-    </LinearLayout>
+        <Button
+            style="@style/operatorButton"
+            android:id="@+id/minusButton"
+            android:text="-"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            style="@style/numberButton"
+            android:id="@+id/button1"
+            android:text="1"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            style="@style/numberButton"
+            android:id="@+id/button2"
+            android:text="2"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            style="@style/numberButton"
+            android:id="@+id/button3"
+            android:text="3"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            style="@style/operatorButton"
+            android:id="@+id/plusButton"
+            android:text="+"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            style="@style/numberButton"
+            android:id="@+id/decimalButton"
+            android:text="."
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            style="@style/numberButton"
+            android:id="@+id/button0"
+            android:text="0"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+        <Button
+            android:id="@+id/equalsButton"
+            style="@style/operatorButton"
+            android:text="="
+            app:layout_columnSpan="2"
+            app:layout_columnWeight="4"
+            app:layout_rowWeight="5" />
+
+
+    </androidx.gridlayout.widget.GridLayout>
 
 </LinearLayout>
