@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private var canAddOperation = false
     private var canAddDecimal = true
-    private var canAddSubtract = true
+    private var canAddMinus = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun addNumber(text: String) {
         inputText.append(text)
         canAddOperation = true
-        canAddSubtract = true
+        canAddMinus = true
     }
 
     /**
@@ -93,9 +93,9 @@ class MainActivity : AppCompatActivity() {
      * Adds a subtract symbol to the text view if allowed.
      */
     private fun addMinus(text: String) {
-        if (canAddSubtract) {
+        if (canAddMinus) {
             inputText.append(text)
-            canAddSubtract = false
+            canAddMinus = false
 
             //if a subtraction symbol is added, you cannot have another operation immediately follow it
             //but you could have a decimal point
@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         inputText.text = ""
         resultText.text = ""
         canAddDecimal = true
-        canAddSubtract = true
+        canAddMinus = true
         canAddOperation = false
     }
 
@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
             if (end.isDigit() || end == '.') {
                 canAddDecimal = true
                 canAddOperation = true
-                canAddSubtract = true
+                canAddMinus = true
             } else {
                 canAddOperation = false
             }
