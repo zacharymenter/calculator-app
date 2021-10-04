@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,22 +50,25 @@ class MainActivity : AppCompatActivity() {
         acButton.setOnClickListener{ allClear() }
 
         val backButton = findViewById<Button>(R.id.backspaceButton)
-        backButton.setOnClickListener { backSpace() }
+        backButton.setOnClickListener{ backSpace() }
+
+        val expButton = findViewById<Button>(R.id.exponentButton)
+        expButton.setOnClickListener{ addOperator("^") }
 
         val divButton = findViewById<Button>(R.id.divideButton)
-        divButton.setOnClickListener{ addOperator(divButton.text.toString()) }
+        divButton.setOnClickListener{ addOperator("/") }
 
         val timesButton = findViewById<Button>(R.id.timesButton)
-        timesButton.setOnClickListener{ addOperator(timesButton.text.toString()) }
+        timesButton.setOnClickListener{ addOperator("x") }
 
         val plusButton = findViewById<Button>(R.id.plusButton)
-        plusButton.setOnClickListener { addOperator(plusButton.text.toString()) }
+        plusButton.setOnClickListener { addOperator("+") }
 
         val minusButton = findViewById<Button>(R.id.minusButton)
-        minusButton.setOnClickListener{ addMinus(minusButton.text.toString()) }
+        minusButton.setOnClickListener{ addMinus() }
 
         val decButton = findViewById<Button>(R.id.decimalButton)
-        decButton.setOnClickListener { addDecimal(decButton.text.toString()) }
+        decButton.setOnClickListener { addDecimal() }
 
         val equalsButton = findViewById<Button>(R.id.equalsButton)
         equalsButton.setOnClickListener { calculate() }
@@ -82,9 +86,9 @@ class MainActivity : AppCompatActivity() {
     /**
      * Adds a decimal point to the input text view if allowed
      */
-    private fun addDecimal(text: String) {
+    private fun addDecimal() {
         if (canAddDecimal) {
-            inputText.append(text)
+            inputText.append(".")
             canAddDecimal = false
             canAddOperation = false
             canAddMinus = false
@@ -94,9 +98,9 @@ class MainActivity : AppCompatActivity() {
     /**
      * Adds a subtract symbol to the text view if allowed.
      */
-    private fun addMinus(text: String) {
+    private fun addMinus() {
         if (canAddMinus) {
-            inputText.append(text)
+            inputText.append("-")
             canAddMinus = false
 
             //if a subtraction symbol is added, you cannot have another operation immediately follow it
@@ -169,8 +173,9 @@ class MainActivity : AppCompatActivity() {
         //only do calculations if input ends with a digit
         if (inputText.text[inputText.length() - 1].isDigit()) {
             val input = parse()
-            val timesDiv = calculateTimesDivision(input)
-            val result = calculateAddition(timesDiv)
+            val exp = calculateExponents(input)
+            val timesDiv = calculateTimesDivision(exp)
+            val result = calculateAddSubtract(timesDiv)
 
             resultText.text = result.toString()
         }
@@ -181,35 +186,75 @@ class MainActivity : AppCompatActivity() {
      */
     private fun parse(): MutableList<Any> {
         val list = mutableListOf<Any>()
-        var current = ""
+        var digit = ""
 
-        for (character in inputText.text) {
-            if (character == '-') {
-                //start a new digit
-                if (current != "") {
-                    list.add(current.toFloat())
-                }
-                current = ""
-                current += character
+        for (i in inputText.text.indices) {
+            val character = inputText.text[i]
 
-            } else if (character.isDigit() || character == '.') {
-                current += character
+            //if current character is a digit, add it to the current digit
+            if (character.isDigit() || character == '.') {
+                digit += character
 
-            //character must be some operator that isn't minus. Add current to list then add the operator
+            //current character is an operator
             } else {
-                list.add(current.toFloat())
-                current = ""
-                list.add(character)
+                if (digit.isNotEmpty()) {
+                    list.add(digit.toFloat())
+                    digit = ""
+                }
+
+                //if current character is '-' and there is an operator before it, the next digit will be negative
+                if (character == '-' && !inputText.text[i - 1].isDigit()) {
+                    digit += character
+
+                //treat as normal operator and add it to the list
+                } else {
+                    list.add(character)
+                }
             }
         }
 
         //handle the end of the list
-        if (current != "") {
-            println(current.toFloat())
-            list.add(current.toFloat())
+        if (digit != "") {
+            println(digit.toFloat())
+            list.add(digit.toFloat())
         }
-
+        println(list)
         return list
+    }
+
+    /**
+     * Calculates any exponents in the list using recursion
+     */
+    //TODO() Integrate this with times and division since the logic is the same
+    private fun calculateExponents(input: MutableList<Any>): MutableList<Any> {
+        if (!input.contains('^')) {
+            return input
+        } else {
+            val result = mutableListOf<Any>()
+
+            var restart = input.size
+
+            for (i in input.indices) {
+                if (input[i] is Char && i < input.lastIndex && i < restart) {
+                    val operator = input[i]
+                    val num1 = input[i - 1] as Float
+                    val num2 = input[i + 1] as Float
+                    if (operator == '^') {
+                        result.add(num1.pow(num2))
+                        restart = i + 1
+                    } else {
+                        result.add(num1)
+                        result.add(operator)
+                    }
+                }
+
+                if (i > restart) {
+                    result.add(input[i])
+                }
+            }
+
+            return calculateExponents(result)
+        }
     }
 
     /**
@@ -229,20 +274,20 @@ class MainActivity : AppCompatActivity() {
             for (i in input.indices) {
                 if (input[i] is Char && i < input.lastIndex && i < restart) {
                     val operator = input[i]
-                    val prev = input[i - 1] as Float
-                    val next = input[i + 1] as Float
+                    val num1 = input[i - 1] as Float
+                    val num2 = input[i + 1] as Float
 
                     when (operator) {
                         'x' -> {
-                            result.add(prev * next)
+                            result.add(num1 * num2)
                             restart = i + 1
                         }
                         '/' -> {
-                            result.add(prev / next)
+                            result.add(num1 / num2)
                             restart = i + 1
                         }
                         else -> {
-                            result.add(prev)
+                            result.add(num1)
                             result.add(operator)
                         }
                     }
@@ -258,20 +303,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Calculates any addition (or subtraction through addition with negatives) in the
-     * list returned from the times and division calculations
+     * Calculates any addition or subtraction in the list returned from the times and division calculations
      */
-    private fun calculateAddition(timesDiv: MutableList<Any>): Float {
+    private fun calculateAddSubtract(timesDiv: MutableList<Any>): Float {
         var result = timesDiv[0] as Float
 
         for (i in timesDiv.indices) {
             val current = timesDiv[i]
             if (current is Char && current == '+' && i < timesDiv.lastIndex) {
                 result += timesDiv[i + 1] as Float
-
-            //handles calculations for a number next to a negative number (e.g. 5-3)
-            } else if (i > 0 && timesDiv[i - 1] is Float && current is Float && current < 0) {
-                result += current
+            } else if (current is Char && current == '-' && i < timesDiv.lastIndex) {
+                result -= timesDiv[i + 1] as Float
             }
         }
 

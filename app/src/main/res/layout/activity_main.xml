@@ -61,8 +61,9 @@
             app:layout_rowWeight="5" />
 
         <Button
-            android:id="@+id/blankButton"
-            android:text=""
+            style="@style/operatorButton"
+            android:id="@+id/exponentButton"
+            android:text="^"
             app:layout_columnWeight="4"
             app:layout_rowWeight="5" />
 
