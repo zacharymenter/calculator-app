@@ -6,7 +6,6 @@ A basic calculator app for CS 436
 - [x] Subtraction
 - [x] Multiplication
 - [x] Division
-- [X] Subtraction
 - [ ] Parentheses?
 - [x] Exponent
 - [ ] Log
