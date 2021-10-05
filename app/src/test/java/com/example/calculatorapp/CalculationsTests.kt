@@ -45,4 +45,58 @@ class CalculationsTests {
         val result = calculations.calculate("-100+-50+35-25")
         assertEquals(-140F, result)
     }
+
+    @Test
+    fun test_multiply() {
+        val result = calculations.calculate("5x5")
+        assertEquals(25F, result)
+    }
+
+    @Test
+    fun test_multiple_multiply() {
+        val result = calculations.calculate("5x5x10x2")
+        assertEquals(500F, result)
+    }
+
+    @Test
+    fun test_division() {
+        val result = calculations.calculate("15/3")
+        assertEquals(5F, result)
+    }
+
+    @Test
+    fun test_multiple_division() {
+        val result = calculations.calculate("30/3/5/2")
+        assertEquals(1F, result)
+    }
+
+    @Test
+    fun test_multiply_divide() {
+        val result = calculations.calculate("30/3x2x3/6x5")
+        assertEquals(50F, result)
+    }
+
+    @Test
+    fun test_decimal() {
+        val result = calculations.calculate(".5+.75")
+        assertEquals(1.25F, result)
+    }
+
+    @Test
+    fun test_multiple_decimal() {
+        val result = calculations.calculate(".5+.5+1+.75+.75")
+        assertEquals(3.5F, result)
+    }
+
+    @Test
+    fun test_exponent() {
+        val result = calculations.calculate("2^2")
+        assertEquals(4F, result)
+    }
+
+    @Test
+    fun test_multiple_exponent() {
+        val result = calculations.calculate("2^2^3^2")
+        assertEquals(4096F, result)
+    }
 }
