@@ -2,6 +2,7 @@ package com.example.calculatorapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -73,10 +74,17 @@ class MainActivity : AppCompatActivity() {
         equalsButton.setOnClickListener { calculate() }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     /**
      * Adds the pressed number text to the input text view
      */
     private fun addNumber(text: String) {
+        resultText.text = ""
         inputText.append(text)
         canAddOperation = true
         canAddMinus = true
@@ -87,6 +95,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun addDecimal() {
         if (canAddDecimal) {
+            resultText.text = ""
             inputText.append(".")
             canAddDecimal = false
             canAddOperation = false
@@ -99,6 +108,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun addMinus() {
         if (canAddMinus) {
+            resultText.text = ""
             inputText.append("-")
             canAddMinus = false
 
@@ -114,6 +124,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun addOperator(text: String) {
         if (canAddOperation) {
+            resultText.text = ""
             inputText.append(text)
             canAddOperation = false
 
@@ -139,10 +150,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun backSpace() {
         val length = inputText.length()
-        if (length > 0) {
-            inputText.text = inputText.text.subSequence(0, length - 1)
+        resultText.text = ""
 
-            //if the last character is a number or decimal, allow decimals and all operations
+        //if the last character is a number or decimal, allow decimals and all operations
+        if (length > 1) {
+            inputText.text = inputText.text.subSequence(0, length - 1)
             val end = inputText.text[inputText.length() - 1]
             if (end.isDigit() || end == '.') {
                 canAddDecimal = true
@@ -162,6 +174,8 @@ class MainActivity : AppCompatActivity() {
                     break
                 }
             }
+        } else {
+            allClear()
         }
     }
 

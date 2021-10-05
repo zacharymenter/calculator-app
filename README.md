@@ -10,6 +10,6 @@ A basic calculator app for CS 436
 - [ ] Parentheses?
 - [x] Exponent
 - [ ] Log
-- [ ] Rotate functionality
+- [x] Rotate functionality
 - [ ] Tests
 - [ ] Other activity
