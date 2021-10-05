@@ -12,3 +12,4 @@ A basic calculator app for CS 436
 - [ ] Log
 - [ ] Rotate functionality
 - [ ] Tests
+- [ ] Other activity
