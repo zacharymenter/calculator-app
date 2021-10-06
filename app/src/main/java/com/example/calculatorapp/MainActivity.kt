@@ -184,9 +184,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun calculate() {
         //only do calculations if input ends with a digit
-        if (inputText.text[inputText.length() - 1].isDigit()) {
-            val result = Calculations().calculate(inputText.text)
-            resultText.text = result.toString()
-        }
+        if (inputText.text[inputText.length() - 1].isDigit())
+            resultText.text = Calculations().calculate(inputText.text).toString()
     }
 }

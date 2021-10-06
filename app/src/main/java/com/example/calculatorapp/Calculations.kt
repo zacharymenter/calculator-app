@@ -3,12 +3,18 @@ package com.example.calculatorapp
 import kotlin.math.pow
 
 class Calculations {
+    private val exp = 'e'
+    private val mulDiv = 'm'
+    private val addSub = 'a'
 
     fun calculate(input: CharSequence): Float {
         val parsed = parse(input)
-        val exp = calculateExponents(parsed)
-        val timesDiv = calculateTimesDivision(exp)
-        return calculateAddSubtract(timesDiv)
+        val result = doOperation(parsed, exp)
+
+        return if (result.size == 1)
+            result[0] as Float
+        else
+            error("Resulting array had more than 1 element")
     }
 
     /**
@@ -33,118 +39,103 @@ class Calculations {
                 }
 
                 //if current character is '-' and there is an operator or nothing else before it, the next digit will be negative
-                if (character == '-' && (i == 0 || !input[i - 1].isDigit())) {
+                if (character == '-' && (i == 0 || !input[i - 1].isDigit()))
                     digit += character
 
                     //treat as normal operator and add it to the list
-                } else {
+                else
                     list.add(character)
-                }
             }
         }
 
         //handle the end of the list
-        if (digit != "") {
+        if (digit != "")
             list.add(digit.toFloat())
-        }
         return list
     }
 
     /**
-     * Calculates any exponents in the list using recursion
+     * Calculates any exponents, multiplication, and division in the list using recursion
      */
-    //TODO() Integrate this with times and division since the logic is the same
-    private fun calculateExponents(input: MutableList<Any>): MutableList<Any> {
-        if (!input.contains('^')) {
-            return input
-        } else {
-            val result = mutableListOf<Any>()
-
-            var restart = input.size
-
-            for (i in input.indices) {
-                if (input[i] is Char && i < input.lastIndex && i < restart) {
-                    val operator = input[i]
-                    val num1 = input[i - 1] as Float
-                    val num2 = input[i + 1] as Float
-                    if (operator == '^') {
-                        result.add(num1.pow(num2))
-                        restart = i + 1
-                    } else {
-                        result.add(num1)
-                        result.add(operator)
-                    }
-                }
-
-                if (i > restart) {
-                    result.add(input[i])
-                }
-            }
-
-            return calculateExponents(result)
+    private fun doOperation(input: MutableList<Any>, operation: Char): MutableList<Any> {
+        if (operation == exp && !input.contains('^')) {
+            //no more '^' so, move on to 'x' and '/'
+            return doOperation(input, mulDiv)
         }
-    }
+        if (operation == mulDiv && !input.contains('x') && !input.contains('/')) {
+            //no more 'x' and '/', so move on to '+' and '-'
+            return doOperation(input, addSub)
+        }
 
-    /**
-     * Calculates any multiplication and division in the list using recursion
-     */
-    private fun calculateTimesDivision(input: MutableList<Any>): MutableList<Any> {
-        //no more multiplication or division to be done
-        if (!input.contains('x') && !input.contains('/')) {
+        //base case
+        if (operation == addSub && !input.contains('+') && !input.contains('-'))
+            //no more operations to be done, return result
             return input
 
-            //do the first multiplication or division operation and make recursive call
-        } else {
-            val result = mutableListOf<Any>()
 
-            var restart = input.size
+        //do the first calculation and make the recursive call to do the rest
+        val result = mutableListOf<Any>()
+        var restart = input.size
 
-            for (i in input.indices) {
-                if (input[i] is Char && i < input.lastIndex && i < restart) {
-                    val operator = input[i]
-                    val num1 = input[i - 1] as Float
-                    val num2 = input[i + 1] as Float
+        for (i in input.indices) {
+            if (input[i] is Char && i < input.lastIndex && i < restart) {
+                val current = input[i]
+                val num1 = input[i - 1] as Float
+                val num2 = input[i + 1] as Float
 
-                    when (operator) {
-                        'x' -> {
-                            result.add(num1 * num2)
+                when (operation) {
+                    //exponent
+                    exp -> {
+                        if (current == '^') {
+                            result.add(num1.pow(num2))
                             restart = i + 1
-                        }
-                        '/' -> {
-                            result.add(num1 / num2)
-                            restart = i + 1
-                        }
-                        else -> {
+                        } else {
                             result.add(num1)
-                            result.add(operator)
+                            result.add(current)
+                        }
+                    }
+
+                    //multiplication or division
+                    mulDiv -> {
+                        when (current) {
+                            'x' -> {
+                                result.add(num1 * num2)
+                                restart = i + 1
+                            }
+                            '/' -> {
+                                result.add(num1 / num2)
+                                restart = i + 1
+                            }
+                            else -> {
+                                result.add(num1)
+                                result.add(current)
+                            }
+                        }
+                    }
+
+                    //addition or subtraction
+                    addSub -> {
+                        when (current) {
+                            '+' -> {
+                                result.add(num1 + num2)
+                                restart = i + 1
+                            }
+                            '-' -> {
+                                result.add(num1 - num2)
+                                restart = i + 1
+                            }
                         }
                     }
                 }
-
-                if (i > restart) {
-                    result.add(input[i])
-                }
             }
 
-            return calculateTimesDivision(result)
-        }
-    }
-
-    /**
-     * Calculates any addition or subtraction in the list returned from the times and division calculations
-     */
-    private fun calculateAddSubtract(timesDiv: MutableList<Any>): Float {
-        var result = timesDiv[0] as Float
-
-        for (i in timesDiv.indices) {
-            val current = timesDiv[i]
-            if (current is Char && current == '+' && i < timesDiv.lastIndex) {
-                result += timesDiv[i + 1] as Float
-            } else if (current is Char && current == '-' && i < timesDiv.lastIndex) {
-                result -= timesDiv[i + 1] as Float
-            }
+            if (i > restart)
+                result.add(input[i])
         }
 
-        return result
+        if (operation == exp && !result.contains('^')) {
+            return doOperation(result, mulDiv)
+        }
+        return doOperation(result, operation)
     }
 }
