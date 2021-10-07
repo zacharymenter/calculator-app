@@ -133,9 +133,6 @@ class Calculations {
                 result.add(input[i])
         }
 
-        if (operation == exp && !result.contains('^')) {
-            return doOperation(result, mulDiv)
-        }
         return doOperation(result, operation)
     }
 }
