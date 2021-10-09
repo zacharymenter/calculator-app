@@ -1,6 +1,8 @@
 package com.example.calculatorapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -18,8 +20,26 @@ class MainActivity : AppCompatActivity() {
     private var canAddDecimal = true
     private var canAddMinus = true
 
+    lateinit var sharedPreferences: SharedPreferences
+    val themeKey = "default"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPreferences = getSharedPreferences("ThemePref", Context.MODE_PRIVATE)
+
+        when (sharedPreferences.getString(themeKey, "default")) {
+            "default" -> {
+                theme.applyStyle(R.style.defaultTheme, true)
+            }
+            "matrix" -> {
+                theme.applyStyle(R.style.matrix, true)
+            }
+            "colorful" -> {
+                theme.applyStyle(R.style.colorful, true)
+            }
+        }
+
         setContentView(R.layout.activity_main)
 
         val button0 = findViewById<Button>(R.id.button0)
@@ -52,32 +72,23 @@ class MainActivity : AppCompatActivity() {
         val button9 = findViewById<Button>(R.id.button9)
         button9.setOnClickListener{ addNumber(button9.text.toString()) }
 
-        val acButton = findViewById<Button>(R.id.acButton)
-        acButton.setOnClickListener{ allClear() }
+        findViewById<Button>(R.id.acButton).setOnClickListener{ allClear() }
 
-        val backButton = findViewById<Button>(R.id.backspaceButton)
-        backButton.setOnClickListener{ backSpace() }
+        findViewById<Button>(R.id.backspaceButton).setOnClickListener{ backSpace() }
 
-        val expButton = findViewById<Button>(R.id.exponentButton)
-        expButton.setOnClickListener{ addOperator("^") }
+        findViewById<Button>(R.id.exponentButton).setOnClickListener{ addOperator("^") }
 
-        val divButton = findViewById<Button>(R.id.divideButton)
-        divButton.setOnClickListener{ addOperator("/") }
+        findViewById<Button>(R.id.divideButton).setOnClickListener{ addOperator("/") }
 
-        val timesButton = findViewById<Button>(R.id.timesButton)
-        timesButton.setOnClickListener{ addOperator("x") }
+        findViewById<Button>(R.id.timesButton).setOnClickListener{ addOperator("x") }
 
-        val plusButton = findViewById<Button>(R.id.plusButton)
-        plusButton.setOnClickListener { addOperator("+") }
+        findViewById<Button>(R.id.plusButton).setOnClickListener { addOperator("+") }
 
-        val minusButton = findViewById<Button>(R.id.minusButton)
-        minusButton.setOnClickListener{ addMinus() }
+        findViewById<Button>(R.id.minusButton).setOnClickListener{ addMinus() }
 
-        val decButton = findViewById<Button>(R.id.decimalButton)
-        decButton.setOnClickListener { addDecimal() }
+        findViewById<Button>(R.id.decimalButton).setOnClickListener { addDecimal() }
 
-        val equalsButton = findViewById<Button>(R.id.equalsButton)
-        equalsButton.setOnClickListener { calculate() }
+        findViewById<Button>(R.id.equalsButton).setOnClickListener { calculate() }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -2,4 +2,8 @@
     <string name="app_name">CalculatorApp</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_calculator">Calculator</string>
+    <string name="change_theme">Change Theme</string>
+    <string name="default_theme">Default Theme</string>
+    <string name="matrix">Matrix</string>
+    <string name="colorful">Colorful</string>
 </resources>
