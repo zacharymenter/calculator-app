@@ -9,7 +9,10 @@ A basic calculator app for CS 436
 - [ ] Parentheses?
 - [x] Exponent
 - [ ] Log
+- [x] Two layouts
 - [x] Rotate functionality
+- [x] Save data on rotate
 - [ ] Tests
+- [x] Menu
 - [ ] Other activity
 - [ ] Different themes

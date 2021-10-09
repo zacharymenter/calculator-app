@@ -1,12 +1,18 @@
 package com.example.calculatorapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
+import android.view.MenuItem
 
 class MainActivity : AppCompatActivity() {
+
+    private val inputKey = "INPUT_KEY"
+    private val resultKey = "RESULT_KEY"
 
     private var canAddOperation = false
     private var canAddDecimal = true
@@ -74,10 +80,36 @@ class MainActivity : AppCompatActivity() {
         equalsButton.setOnClickListener { calculate() }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(inputKey, inputText.text.toString())
+        outState.putString(resultKey, resultText.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        inputText.text = savedInstanceState.getString(inputKey)
+        resultText.text = savedInstanceState.getString(resultKey)
+    }
+
+    private fun startSettingsActivity() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_settings -> {
+                startSettingsActivity()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     /**
