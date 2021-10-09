@@ -14,5 +14,5 @@ A basic calculator app for CS 436
 - [x] Save data on rotate
 - [ ] Tests
 - [x] Menu
-- [ ] Other activity
+- [x] Other activity
 - [ ] Different themes
