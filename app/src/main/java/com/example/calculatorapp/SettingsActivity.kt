@@ -10,18 +10,19 @@ import android.view.MenuItem
 import android.widget.Button
 
 /**
- * Settings activity
+ * Settings activity is the activity for the settings of the app
  *
  * @constructor Create empty Settings activity
  */
 class SettingsActivity : AppCompatActivity() {
+    //for setting the theme of the app
     private lateinit var sharedPreferences: SharedPreferences
     private val themeKey = "default"
 
     /**
-     * On create
+     * On create creates the settings activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState state
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,9 @@ class SettingsActivity : AppCompatActivity() {
         matrix.setOnClickListener { changeTheme(matrix.id) }
     }
 
+    /**
+     * Set app theme sets the color theme based on the selected theme
+     */
     private fun setAppTheme() {
         sharedPreferences = getSharedPreferences("ThemePref", Context.MODE_PRIVATE)
 
@@ -52,10 +56,10 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     /**
-     * On create options menu
+     * On create options menu creates the hamburger menu for the app
      *
-     * @param menu
-     * @return
+     * @param menu the menu of the app
+     * @return a success boolean
      */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -64,10 +68,11 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     /**
-     * On options item selected
+     * On options item selected starts the activity based on the option that was selected
+     * in the menu
      *
-     * @param item
-     * @return
+     * @param item the menu item that was selected
+     * @return a success boolean
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -79,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     /**
-     * Start calculator activity
+     * Start calculator activity launches the main calculator activity
      *
      */
     private fun startCalculatorActivity() {
@@ -88,7 +93,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     /**
-     * Change theme
+     * Change theme sets the theme in shared preferences based on the selected theme
      *
      * @param id
      */

@@ -3,25 +3,29 @@ package com.example.calculatorapp
 import kotlin.math.pow
 
 /**
- * Calculations
+ * Calculations contains the parsing and calculations that the calculator app uses
  *
  * @constructor Create empty Calculations
  */
 class Calculations {
+    //used for order of operations calculations
     private val exp = 'e'
     private val mulDiv = 'm'
     private val addSub = 'a'
 
     /**
-     * Calculate
+     * Calculate parses the input, does the calculations based on the input, and returns the result
      *
-     * @param input
-     * @return
+     * @param input the input string from the main activity
+     * @return the result of the calculation
      */
     fun calculate(input: CharSequence): Float {
         val parsed = parse(input)
+
+        //start with exponents first
         val result = doOperation(parsed, exp)
 
+        //if calculated properly, resulting list should only contain 1 element
         return if (result.size == 1)
             result[0] as Float
         else
@@ -29,10 +33,10 @@ class Calculations {
     }
 
     /**
-     * Parse arses the input string into a list of digits and operators
+     * Parse parses the input string into a list of digits and operators
      *
-     * @param input
-     * @return
+     * @param input the input string
+     * @return the resulting list of digits and operators
      */
     private fun parse(input: CharSequence): MutableList<Any> {
         val list = mutableListOf<Any>()
@@ -41,7 +45,7 @@ class Calculations {
         for (i in input.indices) {
             val character = input[i]
 
-            //if current character is a digit, add it to the current digit
+            //if current character is a digit or decimal, add it to the current digit
             if (character.isDigit() || character == '.') {
                 digit += character
 
@@ -56,7 +60,7 @@ class Calculations {
                 if (character == '-' && (i == 0 || !input[i - 1].isDigit()))
                     digit += character
 
-                    //treat as normal operator and add it to the list
+                    //treat character as normal operator and add it to the list
                 else
                     list.add(character)
             }
@@ -69,7 +73,11 @@ class Calculations {
     }
 
     /**
-     * Do operation calculates any exponents, multiplication, and division in the list using recursion
+     * Do operation calculates any exponents, multiplication, and division in the list using recursion.
+     * It will do the first operation in the list based on the order of operations, then add the rest of the
+     * elements to the result list and call doOperation on the result list.
+     *
+     * Inspired by the algorithm for multiplication and division found in [https://www.youtube.com/watch?v=2hSHgungOKI]
      *
      * @param input
      * @param operation
@@ -147,6 +155,7 @@ class Calculations {
                 }
             }
 
+            //if a calculation has been done, add the rest of the elements to result and make recursive call
             if (i > restart)
                 result.add(input[i])
         }

@@ -11,8 +11,7 @@ class CalculationsTests {
     private val calculations = Calculations()
 
     /**
-     * Test_add
-     *
+     * Test_add tests a single add operation
      */
     @Test
     fun test_add() {
@@ -21,8 +20,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiple_add
-     *
+     * Test_multiple_add tests multiple add operations
      */
     @Test
     fun test_multiple_add() {
@@ -31,8 +29,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_subtract
-     *
+     * Test_subtract tests a single subtract operation
      */
     @Test
     fun test_subtract() {
@@ -41,8 +38,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiple_subtract
-     *
+     * Test_multiple_subtract tests multiple subtract operations
      */
     @Test
     fun test_multiple_subtract() {
@@ -51,8 +47,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_add_subtract
-     *
+     * Test_add_subtract tests addition and subtraction together
      */
     @Test
     fun test_add_subtract() {
@@ -61,8 +56,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_negative_numbers
-     *
+     * Test_negative_numbers tests input with negative numbers
      */
     @Test
     fun test_negative_numbers() {
@@ -71,8 +65,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiply
-     *
+     * Test_multiply tests a single multiplication operation
      */
     @Test
     fun test_multiply() {
@@ -81,8 +74,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiple_multiply
-     *
+     * Test_multiple_multiply tests multiple multiplication operations
      */
     @Test
     fun test_multiple_multiply() {
@@ -91,8 +83,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_division
-     *
+     * Test_division tests a single division operation
      */
     @Test
     fun test_division() {
@@ -101,8 +92,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiple_division
-     *
+     * Test_multiple_division tests multiple division operations
      */
     @Test
     fun test_multiple_division() {
@@ -111,8 +101,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiply_divide
-     *
+     * Test_multiply_divide tests multiplication and division together
      */
     @Test
     fun test_multiply_divide() {
@@ -121,8 +110,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_decimal
-     *
+     * Test_decimal tests a single operation with decimals
      */
     @Test
     fun test_decimal() {
@@ -131,8 +119,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiple_decimal
-     *
+     * Test_multiple_decimal tests multiple operations with decimals
      */
     @Test
     fun test_multiple_decimal() {
@@ -141,8 +128,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_exponent
-     *
+     * Test_exponent tests a single exponent operation
      */
     @Test
     fun test_exponent() {
@@ -151,8 +137,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_multiple_exponent
-     *
+     * Test_multiple_exponent tests multiple exponent operations
      */
     @Test
     fun test_multiple_exponent() {
@@ -161,8 +146,7 @@ class CalculationsTests {
     }
 
     /**
-     * Test_all_operations
-     *
+     * Test_all_operations tests all operations together
      */
     @Test
     fun test_all_operations() {

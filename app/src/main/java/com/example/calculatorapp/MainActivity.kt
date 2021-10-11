@@ -11,22 +11,30 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
 
 /**
- * Main activity
+ * Main activity is the calculator activity that allows the user to enter input and
+ * calculate the result
  *
  * @constructor Create empty Main activity
  */
 class MainActivity : AppCompatActivity() {
-
+    //for saving data between layouts
     private val inputKey = "INPUT_KEY"
     private val resultKey = "RESULT_KEY"
 
+    //for input validation
     private var canAddOperation = false
     private var canAddDecimal = true
     private var canAddMinus = true
 
+    //for setting the theme of the app
     private lateinit var sharedPreferences: SharedPreferences
     private val themeKey = "default"
 
+    /**
+     * On create creates the main activity
+     *
+     * @param savedInstanceState state
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -85,8 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Set app theme
-     *
+     * Set app theme sets the color theme based on the selected theme in the settings activity
      */
     private fun setAppTheme() {
         sharedPreferences = getSharedPreferences("ThemePref", Context.MODE_PRIVATE)
@@ -102,9 +109,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * On save instance state
+     * On save instance state saves the state of the activity on device rotation
      *
-     * @param outState
+     * @param outState the state to be saved
      */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -113,9 +120,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * On restore instance state
+     * On restore instance state restores the state of the activity when created
      *
-     * @param savedInstanceState
+     * @param savedInstanceState the state to restore from
      */
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -124,8 +131,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Start settings activity
-     *
+     * Start settings activity launches the settings activity
      */
     private fun startSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
@@ -133,10 +139,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * On create options menu
+     * On create options menu creates the hamburger menu for the app
      *
-     * @param menu
-     * @return
+     * @param menu the menu of the app
+     * @return a success boolean
      */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -145,10 +151,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * On options item selected
+     * On options item selected starts the activity based on the option that was selected
+     * in the menu
      *
-     * @param item
-     * @return
+     * @param item the menu item that was selected
+     * @return a success boolean
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -162,7 +169,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Add number adds the pressed number text to the input text view
      *
-     * @param text
+     * @param text the text of the number that was pressed
      */
     private fun addNumber(text: String) {
         resultText.text = ""
@@ -173,7 +180,6 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Add decimal adds a decimal point to the input text view if allowed
-     *
      */
     private fun addDecimal() {
         if (canAddDecimal) {
@@ -186,8 +192,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Add minus adds a subtract symbol to the text view if allowed.
-     *
+     * Add minus adds a subtract symbol to the text view if allowed
      */
     private fun addMinus() {
         if (canAddMinus) {
@@ -220,7 +225,6 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * All clear clears the input and result text views and resets input boolean values
-     *
      */
     private fun allClear() {
         inputText.text = ""
@@ -233,7 +237,6 @@ class MainActivity : AppCompatActivity() {
     /**
      * Backspace removes the most recent character in the input text view and sets boolean values for
      * what can be entered after backspacing
-     *
      */
     private fun backSpace() {
         val length = inputText.length()
@@ -268,7 +271,6 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Calculate calculates the result of the input
-     *
      */
     private fun calculate() {
         //only do calculations if input ends with a digit
