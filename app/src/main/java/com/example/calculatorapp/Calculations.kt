@@ -2,11 +2,22 @@ package com.example.calculatorapp
 
 import kotlin.math.pow
 
+/**
+ * Calculations
+ *
+ * @constructor Create empty Calculations
+ */
 class Calculations {
     private val exp = 'e'
     private val mulDiv = 'm'
     private val addSub = 'a'
 
+    /**
+     * Calculate
+     *
+     * @param input
+     * @return
+     */
     fun calculate(input: CharSequence): Float {
         val parsed = parse(input)
         val result = doOperation(parsed, exp)
@@ -18,7 +29,10 @@ class Calculations {
     }
 
     /**
-     * Parses the input string into a list of digits and operators
+     * Parse arses the input string into a list of digits and operators
+     *
+     * @param input
+     * @return
      */
     private fun parse(input: CharSequence): MutableList<Any> {
         val list = mutableListOf<Any>()
@@ -55,7 +69,11 @@ class Calculations {
     }
 
     /**
-     * Calculates any exponents, multiplication, and division in the list using recursion
+     * Do operation calculates any exponents, multiplication, and division in the list using recursion
+     *
+     * @param input
+     * @param operation
+     * @return
      */
     private fun doOperation(input: MutableList<Any>, operation: Char): MutableList<Any> {
         if (operation == exp && !input.contains('^')) {

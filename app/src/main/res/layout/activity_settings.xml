@@ -26,19 +26,12 @@
             android:id="@+id/default_theme"
             android:text="@string/default_theme"
             app:layout_columnWeight="3"
+            android:textColor="@color/white"
             android:background="@color/gray"
             android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/matrix_theme"
-            android:text="@string/light"
-            app:layout_columnWeight="3"
-            android:background="@color/white"
-            android:textColor="@color/black"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/colorful_theme"
             android:text="@string/matrix"
             app:layout_columnWeight="3"
             android:background="@color/black"

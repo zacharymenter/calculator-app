@@ -10,6 +10,11 @@ import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 import android.view.MenuItem
 
+/**
+ * Main activity
+ *
+ * @constructor Create empty Main activity
+ */
 class MainActivity : AppCompatActivity() {
 
     private val inputKey = "INPUT_KEY"
@@ -19,28 +24,17 @@ class MainActivity : AppCompatActivity() {
     private var canAddDecimal = true
     private var canAddMinus = true
 
-    lateinit var sharedPreferences: SharedPreferences
-    val themeKey = "default"
+    private lateinit var sharedPreferences: SharedPreferences
+    private val themeKey = "default"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedPreferences = getSharedPreferences("ThemePref", Context.MODE_PRIVATE)
-
-        when (sharedPreferences.getString(themeKey, "default")) {
-            "default" -> {
-                theme.applyStyle(R.style.defaultTheme, true)
-            }
-            "matrix" -> {
-                theme.applyStyle(R.style.matrix, true)
-            }
-            "colorful" -> {
-                theme.applyStyle(R.style.colorful, true)
-            }
-        }
+        setAppTheme()
 
         setContentView(R.layout.activity_main)
 
+        //set up on click listeners for all buttons
         val button0 = findViewById<Button>(R.id.button0)
         button0.setOnClickListener{ addNumber(button0.text.toString()) }
 
@@ -90,29 +84,72 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.equalsButton).setOnClickListener { calculate() }
     }
 
+    /**
+     * Set app theme
+     *
+     */
+    private fun setAppTheme() {
+        sharedPreferences = getSharedPreferences("ThemePref", Context.MODE_PRIVATE)
+
+        when (sharedPreferences.getString(themeKey, "default")) {
+            "default" -> {
+                theme.applyStyle(R.style.defaultTheme, true)
+            }
+            "matrix" -> {
+                theme.applyStyle(R.style.matrix, true)
+            }
+        }
+    }
+
+    /**
+     * On save instance state
+     *
+     * @param outState
+     */
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(inputKey, inputText.text.toString())
         outState.putString(resultKey, resultText.text.toString())
     }
 
+    /**
+     * On restore instance state
+     *
+     * @param savedInstanceState
+     */
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         inputText.text = savedInstanceState.getString(inputKey)
         resultText.text = savedInstanceState.getString(resultKey)
     }
 
+    /**
+     * Start settings activity
+     *
+     */
     private fun startSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
 
+    /**
+     * On create options menu
+     *
+     * @param menu
+     * @return
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * On options item selected
+     *
+     * @param item
+     * @return
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_settings -> {
@@ -123,7 +160,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Adds the pressed number text to the input text view
+     * Add number adds the pressed number text to the input text view
+     *
+     * @param text
      */
     private fun addNumber(text: String) {
         resultText.text = ""
@@ -133,7 +172,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Adds a decimal point to the input text view if allowed
+     * Add decimal adds a decimal point to the input text view if allowed
+     *
      */
     private fun addDecimal() {
         if (canAddDecimal) {
@@ -146,7 +186,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Adds a subtract symbol to the text view if allowed.
+     * Add minus adds a subtract symbol to the text view if allowed.
+     *
      */
     private fun addMinus() {
         if (canAddMinus) {
@@ -162,7 +203,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Adds an operation symbol to the text view
+     * Add operator adds an operation symbol to the text view
+     *
+     * @param text
      */
     private fun addOperator(text: String) {
         if (canAddOperation) {
@@ -176,7 +219,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Clears the input and result text views and resets input boolean values
+     * All clear clears the input and result text views and resets input boolean values
+     *
      */
     private fun allClear() {
         inputText.text = ""
@@ -187,8 +231,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Removes the most recent character in the input text view and sets boolean values for
+     * Backspace removes the most recent character in the input text view and sets boolean values for
      * what can be entered after backspacing
+     *
      */
     private fun backSpace() {
         val length = inputText.length()
@@ -222,7 +267,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Calculates the result of the input
+     * Calculate calculates the result of the input
+     *
      */
     private fun calculate() {
         //only do calculations if input ends with a digit

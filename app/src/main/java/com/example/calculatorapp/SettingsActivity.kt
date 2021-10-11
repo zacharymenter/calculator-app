@@ -9,13 +9,36 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
 
+/**
+ * Settings activity
+ *
+ * @constructor Create empty Settings activity
+ */
 class SettingsActivity : AppCompatActivity() {
-    lateinit var sharedPreferences: SharedPreferences
-    val themeKey = "default"
+    private lateinit var sharedPreferences: SharedPreferences
+    private val themeKey = "default"
 
+    /**
+     * On create
+     *
+     * @param savedInstanceState
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setAppTheme()
+
+        setContentView(R.layout.activity_settings)
+
+        //set up on click listeners for theme buttons
+        val defaultTheme = findViewById<Button>(R.id.default_theme)
+        defaultTheme.setOnClickListener { changeTheme(defaultTheme.id) }
+
+        val matrix = findViewById<Button>(R.id.matrix_theme)
+        matrix.setOnClickListener { changeTheme(matrix.id) }
+    }
+
+    private fun setAppTheme() {
         sharedPreferences = getSharedPreferences("ThemePref", Context.MODE_PRIVATE)
 
         when (sharedPreferences.getString(themeKey, "default")) {
@@ -25,29 +48,27 @@ class SettingsActivity : AppCompatActivity() {
             "matrix" -> {
                 theme.applyStyle(R.style.matrix, true)
             }
-            "colorful" -> {
-                theme.applyStyle(R.style.colorful, true)
-            }
         }
-
-        setContentView(R.layout.activity_settings)
-
-        val defaultTheme = findViewById<Button>(R.id.default_theme)
-        defaultTheme.setOnClickListener { changeTheme(defaultTheme.id) }
-
-        val matrix = findViewById<Button>(R.id.matrix_theme)
-        matrix.setOnClickListener { changeTheme(matrix.id) }
-
-        val theme2 = findViewById<Button>(R.id.colorful_theme)
-        theme2.setOnClickListener { changeTheme(theme2.id) }
     }
 
+    /**
+     * On create options menu
+     *
+     * @param menu
+     * @return
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * On options item selected
+     *
+     * @param item
+     * @return
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_calculator -> {
@@ -57,11 +78,20 @@ class SettingsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Start calculator activity
+     *
+     */
     private fun startCalculatorActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
 
+    /**
+     * Change theme
+     *
+     * @param id
+     */
     private fun changeTheme(id: Int) {
         when (id) {
             R.id.default_theme -> {
@@ -69,9 +99,6 @@ class SettingsActivity : AppCompatActivity() {
             }
             R.id.matrix_theme -> {
                 sharedPreferences.edit().putString(themeKey, "matrix").apply()
-            }
-            R.id.colorful_theme -> {
-                sharedPreferences.edit().putString(themeKey, "colorful").apply()
             }
         }
 

@@ -15,6 +15,7 @@
         android:layout_weight="2"
         android:padding="10dp">
 
+        <!--Input text view-->
         <TextView
             android:id="@+id/inputText"
             android:layout_width="match_parent"
@@ -26,6 +27,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/resultText" />
 
+        <!--Output text view-->
         <TextView
             android:id="@+id/resultText"
             android:layout_width="match_parent"
@@ -38,6 +40,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!--Calculator buttons grid-->
     <androidx.gridlayout.widget.GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -45,7 +48,7 @@
         app:columnCount="5"
         app:rowCount="4">
         
-        <!--row 1-->
+        <!--Row 1-->
         <Button
             android:id="@+id/button7"
             style="@style/button"
@@ -61,17 +64,19 @@
             style="@style/button"
             android:text="9"/>
 
+        <!--Divide button-->
         <Button
             android:id="@+id/divideButton"
             style="@style/button"
             android:text="/"/>
 
+        <!--Backspace button-->
         <Button
             android:id="@+id/backspaceButton"
             style="@style/button"
             android:text="⌫"/>
 
-        <!--row 2-->
+        <!--Row 2-->
         <Button
             android:id="@+id/button4"
             style="@style/button"
@@ -87,17 +92,19 @@
             style="@style/button"
             android:text="6"/>
 
+        <!--Multiply button-->
         <Button
             android:id="@+id/timesButton"
             style="@style/button"
             android:text="x"/>
 
+        <!--All clear button-->
         <Button
             android:id="@+id/acButton"
             style="@style/button"
             android:text="AC"/>
 
-        <!--row 3-->
+        <!--Row 3-->
         <Button
             android:id="@+id/button1"
             style="@style/button"
@@ -113,34 +120,38 @@
             style="@style/button"
             android:text="3"/>
 
+        <!--Subtract button-->
         <Button
             android:id="@+id/minusButton"
             style="@style/button"
             android:text="-"/>
 
+        <!--Exponent button-->
         <Button
             android:id="@+id/exponentButton"
             style="@style/button"
             android:text="^"/>
 
-        <!--row 4-->
+        <!--Row 4-->
         <Button
             android:id="@+id/button0"
             style="@style/button"
             android:text="0"
             app:layout_columnSpan="2"/>
 
+        <!--Decimal button-->
         <Button
             android:id="@+id/decimalButton"
             style="@style/button"
             android:text="."/>
 
-
+        <!--Add button-->
         <Button
             android:id="@+id/plusButton"
             style="@style/button"
             android:text="+"/>
 
+        <!--Equals button-->
         <Button
             android:id="@+id/equalsButton"
             style="@style/button"

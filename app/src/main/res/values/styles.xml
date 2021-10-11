@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--Calculator buttons-->
     <style name="button">
         <item name="background">@null</item>
         <item name="android:textSize">25sp</item>
