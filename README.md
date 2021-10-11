@@ -18,4 +18,4 @@ This calculator implements addition, subtraction, multiplication, division, and 
 - [x] Menu
 - [x] Other activity
 - [x] Different themes
-- [ ] Kdoc comments
+- [x] Kdoc comments
