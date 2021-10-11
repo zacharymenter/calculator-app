@@ -12,7 +12,7 @@ A basic calculator app for CS 436
 - [x] Two layouts
 - [x] Rotate functionality
 - [x] Save data on rotate
-- [ ] Tests
+- [x] Unit tests
 - [x] Menu
 - [x] Other activity
 - [x] Different themes
