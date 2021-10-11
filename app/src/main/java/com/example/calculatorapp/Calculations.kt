@@ -40,25 +40,25 @@ class Calculations {
      */
     private fun parse(input: CharSequence): MutableList<Any> {
         val list = mutableListOf<Any>()
-        var digit = ""
+        var number = ""
 
         for (i in input.indices) {
             val character = input[i]
 
-            //if current character is a digit or decimal, add it to the current digit
+            //if current character is a number or decimal, add it to the current number
             if (character.isDigit() || character == '.') {
-                digit += character
+                number += character
 
                 //current character is an operator
             } else {
-                if (digit.isNotEmpty()) {
-                    list.add(digit.toFloat())
-                    digit = ""
+                if (number.isNotEmpty()) {
+                    list.add(number.toFloat())
+                    number = ""
                 }
 
-                //if current character is '-' and there is an operator or nothing else before it, the next digit will be negative
+                //if current character is '-' and there is an operator or nothing else before it, the next number will be negative
                 if (character == '-' && (i == 0 || !input[i - 1].isDigit()))
-                    digit += character
+                    number += character
 
                     //treat character as normal operator and add it to the list
                 else
@@ -67,8 +67,8 @@ class Calculations {
         }
 
         //handle the end of the list
-        if (digit != "")
-            list.add(digit.toFloat())
+        if (number != "")
+            list.add(number.toFloat())
         return list
     }
 
