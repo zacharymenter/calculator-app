@@ -24,7 +24,7 @@
             android:text=""
             android:textAlignment="textEnd"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/resultText" />
 
         <!--Output text view-->
