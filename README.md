@@ -15,4 +15,4 @@ A basic calculator app for CS 436
 - [ ] Tests
 - [x] Menu
 - [x] Other activity
-- [ ] Different themes
+- [x] Different themes
