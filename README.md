@@ -16,3 +16,4 @@ A basic calculator app for CS 436
 - [x] Menu
 - [x] Other activity
 - [x] Different themes
+- [ ] Kdoc comments
