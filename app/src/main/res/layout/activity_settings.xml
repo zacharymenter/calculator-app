@@ -24,23 +24,26 @@
 
         <Button
             android:id="@+id/default_theme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/default_theme"
-            app:layout_columnWeight="3"/>
+            app:layout_columnWeight="3"
+            android:background="@color/gray"
+            android:layout_margin="5dp"/>
+
         <Button
             android:id="@+id/matrix_theme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/matrix"
-            app:layout_columnWeight="3"/>
+            android:text="@string/light"
+            app:layout_columnWeight="3"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/colorful_theme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/colorful"
-            app:layout_columnWeight="3"/>
+            android:text="@string/matrix"
+            app:layout_columnWeight="3"
+            android:background="@color/black"
+            android:textColor="@color/matrix_green"
+            android:layout_margin="5dp"/>
 
     </androidx.gridlayout.widget.GridLayout>
 

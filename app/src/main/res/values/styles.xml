@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="numberButton">
+    <style name="button">
         <item name="background">@null</item>
         <item name="android:textSize">25sp</item>
-    </style>
-
-    <style name="operatorButton">
-        <item name="background">@null</item>
-        <item name="android:textSize">25sp</item>
+        <item name="layout_columnWeight">4</item>
+        <item name="layout_rowWeight">5</item>
     </style>
 
 </resources>

@@ -48,142 +48,103 @@
         <!--row 1-->
         <Button
             android:id="@+id/button7"
-            style="@style/numberButton"
-            android:text="7"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="7"/>
 
         <Button
             android:id="@+id/button8"
-            style="@style/numberButton"
-            android:text="8"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="8"/>
 
         <Button
             android:id="@+id/button9"
-            style="@style/numberButton"
-            android:text="9"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="9"/>
 
         <Button
             android:id="@+id/divideButton"
-            style="@style/operatorButton"
-            android:text="/"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="/"/>
 
         <Button
             android:id="@+id/backspaceButton"
-            style="@style/operatorButton"
-            android:text="⌫"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="⌫"/>
 
         <!--row 2-->
         <Button
             android:id="@+id/button4"
-            style="@style/numberButton"
-            android:text="4"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="4"/>
 
         <Button
             android:id="@+id/button5"
-            style="@style/numberButton"
-            android:text="5"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="5"/>
 
         <Button
             android:id="@+id/button6"
-            style="@style/numberButton"
-            android:text="6"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="6"/>
 
         <Button
             android:id="@+id/timesButton"
-            style="@style/operatorButton"
-            android:text="x"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="x"/>
 
         <Button
             android:id="@+id/acButton"
-            style="@style/operatorButton"
-            android:text="AC"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="AC"/>
 
         <!--row 3-->
         <Button
             android:id="@+id/button1"
-            style="@style/numberButton"
-            android:text="1"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="1"/>
 
         <Button
             android:id="@+id/button2"
-            style="@style/numberButton"
-            android:text="2"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="2"/>
 
         <Button
             android:id="@+id/button3"
-            style="@style/numberButton"
-            android:text="3"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="3"/>
 
         <Button
             android:id="@+id/minusButton"
-            style="@style/operatorButton"
-            android:text="-"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="-"/>
 
         <Button
             android:id="@+id/exponentButton"
-            style="@style/operatorButton"
-            android:text="^"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="^"/>
 
         <!--row 4-->
         <Button
             android:id="@+id/button0"
-            style="@style/numberButton"
+            style="@style/button"
             android:text="0"
-            app:layout_columnSpan="2"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            app:layout_columnSpan="2"/>
 
         <Button
             android:id="@+id/decimalButton"
-            style="@style/numberButton"
-            android:text="."
-
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="."/>
 
 
         <Button
             android:id="@+id/plusButton"
-            style="@style/operatorButton"
-            android:text="+"
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="+"/>
 
         <Button
             android:id="@+id/equalsButton"
-            style="@style/operatorButton"
-            android:text="="
-            app:layout_columnWeight="5"
-            app:layout_rowWeight="4" />
+            style="@style/button"
+            android:text="="/>
 
 
     </androidx.gridlayout.widget.GridLayout>
