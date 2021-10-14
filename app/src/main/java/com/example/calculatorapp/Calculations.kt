@@ -9,9 +9,9 @@ import kotlin.math.pow
  */
 class Calculations {
     //used for order of operations calculations
-    private val exp = 'e'
-    private val mulDiv = 'm'
-    private val addSub = 'a'
+    private val exp = 0
+    private val mulDiv = 1
+    private val addSub = 2
 
     /**
      * Calculate parses the input, does the calculations based on the input, and returns the result
@@ -79,11 +79,11 @@ class Calculations {
      *
      * Inspired by the algorithm for multiplication and division found in [https://www.youtube.com/watch?v=2hSHgungOKI]
      *
-     * @param input
-     * @param operation
-     * @return
+     * @param input the input list of numbers and operators
+     * @param operation the current level of order of operations
+     * @return the result list after the operations are calculated
      */
-    private fun doOperation(input: MutableList<Any>, operation: Char): MutableList<Any> {
+    private fun doOperation(input: MutableList<Any>, operation: Int): MutableList<Any> {
         if (operation == exp && !input.contains('^')) {
             //no more '^' so, move on to 'x' and '/'
             return doOperation(input, mulDiv)
@@ -99,12 +99,14 @@ class Calculations {
             return input
 
 
-        //do the first calculation and make the recursive call to do the rest
         val result = mutableListOf<Any>()
-        var restart = input.size
+        var restart = false
+        val size = input.size
 
-        for (i in input.indices) {
-            if (input[i] is Char && i < input.lastIndex && i < restart) {
+        //loop through input, do first calculation, then make recursive call
+        var i = 0
+        while(i < size) {
+            if (input[i] is Char && i < size && !restart) {
                 val current = input[i]
                 val num1 = input[i - 1] as Float
                 val num2 = input[i + 1] as Float
@@ -114,7 +116,8 @@ class Calculations {
                     exp -> {
                         if (current == '^') {
                             result.add(num1.pow(num2))
-                            restart = i + 1
+                            restart = true
+                            i++
                         } else {
                             result.add(num1)
                             result.add(current)
@@ -126,11 +129,13 @@ class Calculations {
                         when (current) {
                             'x' -> {
                                 result.add(num1 * num2)
-                                restart = i + 1
+                                restart = true
+                                i++
                             }
                             '/' -> {
                                 result.add(num1 / num2)
-                                restart = i + 1
+                                restart = true
+                                i++
                             }
                             else -> {
                                 result.add(num1)
@@ -144,20 +149,23 @@ class Calculations {
                         when (current) {
                             '+' -> {
                                 result.add(num1 + num2)
-                                restart = i + 1
+                                restart = true
+                                i++
                             }
                             '-' -> {
                                 result.add(num1 - num2)
-                                restart = i + 1
-                            }
+                                restart = true
+                                i++                            }
                         }
                     }
                 }
+            } else if (restart) {
+                //if an operation has been done, add the rest of the input list to the result list,
+                //skipping over the current operator and next number
+                result.add(input[i])
             }
 
-            //if a calculation has been done, add the rest of the elements to result and make recursive call
-            if (i > restart)
-                result.add(input[i])
+            i++
         }
 
         return doOperation(result, operation)
