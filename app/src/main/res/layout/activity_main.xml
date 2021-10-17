@@ -23,7 +23,6 @@
             android:text=""
             android:textAlignment="textEnd"
             android:textSize="30sp"
-            android:textColor="@color/white"
             android:maxLines="2"
             app:layout_constraintBottom_toTopOf="@+id/resultText" />
 
@@ -35,7 +34,6 @@
             android:text=""
             android:textAlignment="textEnd"
             android:textSize="50sp"
-            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

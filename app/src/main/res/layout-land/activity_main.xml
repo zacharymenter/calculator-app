@@ -23,7 +23,6 @@
             android:maxLines="2"
             android:text=""
             android:textAlignment="textEnd"
-            android:textColor="@color/white"
             android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/resultText" />
 
@@ -34,7 +33,6 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textAlignment="textEnd"
-            android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
